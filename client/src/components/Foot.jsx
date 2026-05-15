@@ -22,7 +22,7 @@ const Foot = () => {
             Terms of Service
           </Link>
           <a
-            href="https://github.com/JiyaBatra/CODEVIBE-/blob/main/CONTRIBUTING.md"
+            href="https://github.com/JiyaBatra/CODEVIBE-/blob/main/Contributing.md"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-link"
@@ -43,7 +43,7 @@ const Foot = () => {
               <FaDiscord aria-hidden="true" /> Discord
             </a>
             <a
-              href="https://www.linkedin.com/company/codevibe"
+              href="https://www.linkedin.com/in/jiya-batra-12b02b289"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Follow CodeVibe on LinkedIn"
