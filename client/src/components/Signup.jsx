@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import registerImage from "../assets/registerImage.png";
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +18,7 @@ const SignUp = () => {
     try {
       const response = await axios.post("https://codevibe-3.onrender.com/api/auth/register", {
         username,
-        Email:email,   // ✅ lowercase, same as Dashboard
+        Email: email,   // ✅ lowercase, same as Dashboard
         password,
         college,
         year,
@@ -38,59 +39,66 @@ const SignUp = () => {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h1>Sign Up</h1>
+    <section className='login-section'>
+      <div className="login-container">
+        <div className="login-image">
+          <img src={registerImage} className='registerImage' alt="Register image" />
+        </div>
+        <div className="login-card">
+          <form className="login-form" onSubmit={handleSubmit}>
+            <h1>Join Us Today ! </h1>
 
-        <label>USERNAME:</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
+            <label>USERNAME:</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
 
-        <label>COLLEGE:</label>
-        <input
-          type="text"
-          value={college}
-          onChange={(e) => setCollege(e.target.value)}
-          required
-        />
+            <label>COLLEGE:</label>
+            <input
+              type="text"
+              value={college}
+              onChange={(e) => setCollege(e.target.value)}
+              required
+            />
 
-        <label>YEAR:</label>
-        <input
-          type="text"
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-          required
-        />
+            <label>YEAR:</label>
+            <input
+              type="text"
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              required
+            />
 
-        <label>EMAIL:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+            <label>EMAIL:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-        <label>PASSWORD:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+            <label>PASSWORD:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
-        <button type="submit">SUBMIT</button>
+            <button type="submit">SUBMIT</button>
 
-        {responseMsg && <p style={{ color: "white" }}>{responseMsg}</p>}
+            {responseMsg && <p style={{ color: "white" }}>{responseMsg}</p>}
 
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
-      </form>
-    </div>
+            <p>
+              Already have an account? <Link to="/login">Login</Link>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
   );
 };
 

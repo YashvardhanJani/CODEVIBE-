@@ -1,9 +1,15 @@
-import React from "react"
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import { FaSignInAlt, FaUserPlus, FaTachometerAlt, FaGamepad } from "react-icons/fa";
+import { FaSignInAlt, FaUserPlus, FaTachometerAlt, FaGamepad, FaBars, FaTimes } from "react-icons/fa";
 import logo from "../assets/websitelogo.png";
 
 const Head = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <header>
       <div className="header-logo-wrapper">
@@ -12,18 +18,27 @@ const Head = () => {
         </Link>
       </div>
       
-      <div className="header-nav">
-        <Link to="/Login" className="nav-link">
+      <button 
+        className="hamburger-btn" 
+        onClick={toggleMenu} 
+        aria-label="Toggle navigation menu"
+        aria-expanded={menuOpen}
+      >
+        {menuOpen ? <FaTimes /> : <FaBars />}
+      </button>
+
+      <div className={`header-nav ${menuOpen ? "open" : ""}`}>
+        <Link to="/Login" className="nav-link" onClick={() => setMenuOpen(false)}>
           <FaSignInAlt className="nav-icon" />
           <span>Login</span>
         </Link>
 
-        <Link to="/Signup" className="nav-link">
+        <Link to="/Signup" className="nav-link" onClick={() => setMenuOpen(false)}>
           <FaUserPlus className="nav-icon" />
           <span>Sign Up</span>
         </Link>
 
-        <Link to="/Dashboard" className="nav-link">
+        <Link to="/Dashboard" className="nav-link" onClick={() => setMenuOpen(false)}>
           <FaTachometerAlt className="nav-icon" />
           <span>Dashboard</span>
         </Link>
