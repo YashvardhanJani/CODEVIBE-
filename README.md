@@ -12,6 +12,7 @@ A modern, browser-based coding practice platform inspired by FreeCodeCamp. Learn
 
 **[Live Demo](https://codevibeforyou.netlify.app/)** •
 **[Project Structure](#project-structure)** •
+**[Contributor Leaderboard](CONTRIBUTOR_LEADERBOARD.md)** •
 **[Contributing](#contributing)** •
 **[Code of Conduct](#code-of-conduct)** •
 **[Community](#community)** •

@@ -1,43 +1,60 @@
-name: Leaderboard
+name: Contributor Leaderboard
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+    branches:
+      - main
   issues:
-    types: [opened, closed]
+    types:
+      - closed
   pull_request:
-    types: [opened, closed, merged]
+    types:
+      - closed
+
+permissions:
+  contents: write
+  issues: read
+  pull-requests: read
+
+concurrency:
+  group: contributor-leaderboard
+  cancel-in-progress: false
 
 jobs:
   update-leaderboard:
+    name: Update contributor leaderboard
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # fixes Node.js 20 deprecation
 
-      - name: Set Event Variables
-        id: vars
+      - name: Generate leaderboard
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { updateContributorLeaderboard } = require(`${process.env.GITHUB_WORKSPACE}/.github/scripts/update-contributor-leaderboard.cjs`);
+
+            await updateContributorLeaderboard({
+              github,
+              context,
+              core,
+              outputPath: "CONTRIBUTOR_LEADERBOARD.md"
+            });
+
+      - name: Commit leaderboard changes
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            echo "USERNAME=${{ github.event.pull_request.user.login }}" >> $GITHUB_ENV
-            echo "EVENT_NAME=pull_request" >> $GITHUB_ENV
-            echo "POINTS=50" >> $GITHUB_ENV
-          else
-            echo "USERNAME=${{ github.event.issue.user.login }}" >> $GITHUB_ENV
-            echo "EVENT_NAME=issue" >> $GITHUB_ENV
-            echo "POINTS=10" >> $GITHUB_ENV
+          if git diff --quiet -- CONTRIBUTOR_LEADERBOARD.md; then
+            echo "Contributor leaderboard is already up to date."
+            exit 0
           fi
 
-      - name: Send Data to Backend
-        # Guard: only run if the secret is actually set
-        if: ${{ secrets.LEADERBOARD_API != '' }}
-        run: |
-          curl -X POST "$LEADERBOARD_API" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $API_TOKEN" \
-            -d "{\"username\": \"$USERNAME\", \"event\": \"$EVENT_NAME\", \"points\": \"$POINTS\"}" \
-            --fail-with-body
-        env:
-          LEADERBOARD_API: ${{ secrets.LEADERBOARD_API }}
-          API_TOKEN: ${{ secrets.API_TOKEN }}
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CONTRIBUTOR_LEADERBOARD.md
+          git commit -m "docs: update contributor leaderboard"
+          git push
