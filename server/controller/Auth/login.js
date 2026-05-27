@@ -1,37 +1,60 @@
-// Main logic
-// Step 1: Validate incoming data (login form)
-// Step 2: Check if user exists in DB
-// Step 3: Compare password
-// Step 4: Send response to frontend
-
+// controller/Auth/login.js
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const UserModel = require("../../models/user.models");
 
 const login = async (req, res, next) => {
   try {
-    const { Email, password } = req.body;
+    // Normalise: accept both `email` and `Email` from the body
+    const email = (req.body.email || req.body.Email || "").trim().toLowerCase();
+    const { password } = req.body;
 
-    const user = await UserModel.findOne({ Email });
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required",
+      });
+    }
+
+    // Find by the lowercase `email` field stored in the DB
+    const user = await UserModel.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
     }
 
-    if (user.password !== password) {
-      return res.status(401).json({ message: "Invalid credentials" });
+    // Compare submitted password with the stored bcrypt hash
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid credentials",
+      });
     }
+
+    // Sign a JWT
+    const token = jwt.sign(
+      { userId: user._id, email: user.email, username: user.username },
+      process.env.JWT_SECRET || "codevibe_default_secret",
+      { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
+    );
 
     return res.status(200).json({
       success: true,
       message: "Login successful",
+      token,
       user: {
         username: user.username,
-        email: user.Email,
+        email: user.email,
         college: user.college,
         year: user.year,
       },
     });
   } catch (error) {
-    next(error);
     console.error("Login error:", error);
+    next(error);
   }
 };
 

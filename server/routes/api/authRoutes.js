@@ -6,10 +6,18 @@ const register = require("../../controller/Auth/register");
 const login = require("../../controller/Auth/login");
 const forgotPassword = require("../../controller/Auth/forgotPassword");
 const resetPassword = require("../../controller/Auth/resetPassword");
+const updateProfile = require("../../controller/Auth/updateProfile");
+const verifyToken = require("../../middleware/authMiddleware");
 
 Router.post("/register", register);
 Router.post("/login", login);
 Router.post("/forgot-password", forgotPassword);
 Router.post("/reset-password", resetPassword);
+Router.put("/profile", verifyToken, updateProfile);
+
+// Returns current user info from the JWT
+Router.get("/me", verifyToken, (req, res) => {
+  res.status(200).json({ success: true, user: req.user });
+});
 
 module.exports = Router;

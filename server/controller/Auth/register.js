@@ -1,43 +1,78 @@
-//main logic 
-//step of api 
-//we have to validate data of frontend (order) or req data
-//second step
-//we have to verify data from db etheri it exist or not.
-//3rd step 
-//data save in mongo db
-//fourth step 
-//send respose to frontend
-
+// controller/Auth/register.js
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const UserModel = require("../../models/user.models");
-const momsvalidation = require("../../services/validationScheme");
 
 const register = async (req, res, next) => {
   try {
-    const { username, Email, password, college, year } = req.body;
+    const username = (req.body.username || "").trim();
+    // Normalise: accept both `email` and `Email`
+    const email = (req.body.email || req.body.Email || "").trim().toLowerCase();
+    const college = (req.body.college || "").trim();
+    const year = (req.body.year || "").trim();
+    const { password } = req.body;
 
-    const userExist = await UserModel.findOne({ Email });
-    if (userExist) {
-      return res.status(400).json({ message: "User already exists" });
+    if (!username || !email || !college || !year || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill in all required fields",
+      });
     }
+
+    // Check for duplicate email
+    const userExist = await UserModel.findOne({ email });
+    if (userExist) {
+      return res.status(400).json({
+        success: false,
+        message: "User already exists",
+      });
+    }
+
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const userCreate = new UserModel({
       username,
-      Email,
-      password,
+      email,
+      password: hashedPassword,
       college,
       year,
     });
 
     await userCreate.save();
 
-    res.status(200).json({
+    // Return a JWT so the user is logged in immediately after registering
+    const token = jwt.sign(
+      { userId: userCreate._id, email, username },
+      process.env.JWT_SECRET || "codevibe_default_secret",
+      { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
+    );
+
+    return res.status(200).json({
       success: true,
       message: "User registered successfully",
-      user: { username, Email, college, year },
+      token,
+      user: { username, email, college, year },
     });
   } catch (error) {
-    next(error);
     console.error("Registration error:", error);
+
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: "User already exists",
+      });
+    }
+
+    if (error.name === "ValidationError") {
+      const firstError = Object.values(error.errors)[0];
+      return res.status(400).json({
+        success: false,
+        message: firstError?.message || "Invalid signup data",
+      });
+    }
+
+    next(error);
   }
 };
 
