@@ -2,7 +2,7 @@
 
 This leaderboard is generated automatically for `YashvardhanJani/CODEVIBE-` by GitHub Actions.
 
-Last updated: 2026-06-16
+Last updated: 2026-06-17
 
 ## Scoring
 
@@ -32,7 +32,7 @@ Last updated: 2026-06-16
 | 16 | [@theblag](https://github.com/theblag) | 4 | 2 | 0 | 0 |
 | 17 | [@adityavikram-01](https://github.com/adityavikram-01) | 2 | 1 | 0 | 0 |
 | 18 | [@chinmaymohite3036](https://github.com/chinmaymohite3036) | 2 | 1 | 0 | 0 |
-| 19 | [@divyagsharma2006-blip](https://github.com/divyagsharma2006-blip) | 2 | 1 | 0 | 0 |
+| 19 | [@divyaa404](https://github.com/divyaa404) | 2 | 1 | 0 | 0 |
 | 20 | [@JANHAVI40](https://github.com/JANHAVI40) | 2 | 1 | 0 | 0 |
 | 21 | [@Mudita-Singh](https://github.com/Mudita-Singh) | 2 | 1 | 0 | 0 |
 | 22 | [@PeyalaAnandanaidu](https://github.com/PeyalaAnandanaidu) | 2 | 1 | 0 | 0 |
