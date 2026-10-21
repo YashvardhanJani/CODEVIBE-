@@ -2,7 +2,7 @@
 
 This leaderboard is generated automatically for `YashvardhanJani/CODEVIBE-` by GitHub Actions.
 
-Last updated: 2026-10-20
+Last updated: 2026-10-21
 
 ## Scoring
 
@@ -33,11 +33,12 @@ Last updated: 2026-10-20
 | 17 | [@adityavikram-01](https://github.com/adityavikram-01) | 2 | 1 | 0 | 0 |
 | 18 | [@chinmaymohite3036](https://github.com/chinmaymohite3036) | 2 | 1 | 0 | 0 |
 | 19 | [@divyaa404](https://github.com/divyaa404) | 2 | 1 | 0 | 0 |
-| 20 | [@JANHAVI40](https://github.com/JANHAVI40) | 2 | 1 | 0 | 0 |
-| 21 | [@Mudita-Singh](https://github.com/Mudita-Singh) | 2 | 1 | 0 | 0 |
-| 22 | [@PeyalaAnandanaidu](https://github.com/PeyalaAnandanaidu) | 2 | 1 | 0 | 0 |
-| 23 | [@ravishankar-03](https://github.com/ravishankar-03) | 2 | 1 | 0 | 0 |
-| 24 | [@Shashankpatilrcr](https://github.com/Shashankpatilrcr) | 2 | 1 | 0 | 0 |
-| 25 | [@Smrithi-krishna](https://github.com/Smrithi-krishna) | 2 | 1 | 0 | 0 |
-| 26 | [@Tech4Aditya](https://github.com/Tech4Aditya) | 2 | 1 | 0 | 0 |
-| 27 | [@tejaswibellapu](https://github.com/tejaswibellapu) | 2 | 1 | 0 | 0 |
+| 20 | [@divyagsharma1415-cpu](https://github.com/divyagsharma1415-cpu) | 2 | 1 | 0 | 0 |
+| 21 | [@JANHAVI40](https://github.com/JANHAVI40) | 2 | 1 | 0 | 0 |
+| 22 | [@Mudita-Singh](https://github.com/Mudita-Singh) | 2 | 1 | 0 | 0 |
+| 23 | [@PeyalaAnandanaidu](https://github.com/PeyalaAnandanaidu) | 2 | 1 | 0 | 0 |
+| 24 | [@ravishankar-03](https://github.com/ravishankar-03) | 2 | 1 | 0 | 0 |
+| 25 | [@Shashankpatilrcr](https://github.com/Shashankpatilrcr) | 2 | 1 | 0 | 0 |
+| 26 | [@Smrithi-krishna](https://github.com/Smrithi-krishna) | 2 | 1 | 0 | 0 |
+| 27 | [@Tech4Aditya](https://github.com/Tech4Aditya) | 2 | 1 | 0 | 0 |
+| 28 | [@tejaswibellapu](https://github.com/tejaswibellapu) | 2 | 1 | 0 | 0 |
